@@ -8,7 +8,8 @@
             //Console.WriteLine(PropertiesCodes.PlayerName);
             //PropertiesCodes.PlayerName = "mahmut";
             //Console.WriteLine(PropertiesCodes.PlayerName);
-            MultiD_Arrays();
+            //MultiD_Arrays();
+            Dictionaries();
         }
 
         static void MultiD_Arrays()
@@ -36,6 +37,44 @@
                 Console.WriteLine(arrMultiD[i] == null);
                 arrMultiD[i] = new int[5];
             }
+        }
+
+
+        enum ResourceType
+        {
+            Stone,
+            Wood,
+            Gold
+        }
+        static void Dictionaries()
+        {
+            //Dictionary<ResourceType,int> resourceTypeAmount = new Dictionary<ResourceType,int>();
+            Dictionary<ResourceType, int> resourceTypeAmount = new Dictionary<ResourceType, int>() 
+            {   {ResourceType.Stone,123 },
+                {ResourceType.Wood,456 },
+                {ResourceType.Gold,13 },
+            };
+
+            foreach (KeyValuePair<ResourceType,int> pair in resourceTypeAmount)
+            {
+                Console.WriteLine($"Resource: {pair.Key}, Amount: {pair.Value}");
+            }
+            Console.WriteLine("------------------------------------------");
+            foreach (ResourceType rType in resourceTypeAmount.Keys)
+            {
+                Console.WriteLine($"Resource: {rType}");
+            }
+
+            Console.WriteLine("------------------------");
+            //resourceTypeAmount.Add(ResourceType.Gold, 31);
+            Console.WriteLine(resourceTypeAmount[ResourceType.Gold]);
+            //resourceTypeAmount.Add(ResourceType.Stone, 46354);
+
+            if (resourceTypeAmount.TryGetValue(ResourceType.Stone, out int stoneAmount)) {
+                Console.WriteLine(stoneAmount);
+            }
+            
+            resourceTypeAmount.Remove(ResourceType.Gold);
         }
     }
 }
