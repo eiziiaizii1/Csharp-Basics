@@ -9,7 +9,9 @@
             //PropertiesCodes.PlayerName = "mahmut";
             //Console.WriteLine(PropertiesCodes.PlayerName);
             //MultiD_Arrays();
-            Dictionaries();
+            //Dictionaries();
+            OtherCollections();
+
         }
 
         static void MultiD_Arrays()
@@ -75,6 +77,27 @@
             }
             
             resourceTypeAmount.Remove(ResourceType.Gold);
+        }
+
+        static void OtherCollections()
+        {
+            Stack<string> animals = new Stack<string>();
+
+            animals.Push("MONKEYYY");
+            animals.Push("Cat");
+
+            Console.WriteLine(animals.Pop());
+
+            Queue<string> humans = new Queue<string>();
+            humans.Enqueue("Trump");
+            humans.Enqueue("Biden");
+            Console.WriteLine(humans.Dequeue());
+
+            HashSet<string> set1 = new HashSet<string>();
+
+            set1.Add("a");
+            set1.Add("a");
+            Console.WriteLine(set1.Count);
         }
     }
 }
