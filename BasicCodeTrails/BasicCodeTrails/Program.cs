@@ -1,4 +1,6 @@
-﻿namespace BasicCodeTrails
+﻿using System.Numerics;
+
+namespace BasicCodeTrails
 {
     internal class Program
     {
@@ -10,8 +12,9 @@
             //Console.WriteLine(PropertiesCodes.PlayerName);
             //MultiD_Arrays();
             //Dictionaries();
-            OtherCollections();
-
+            //OtherCollections();
+            //ParamsTest();
+            OptionalParametersTest();
         }
 
         static void MultiD_Arrays()
@@ -40,8 +43,6 @@
                 arrMultiD[i] = new int[5];
             }
         }
-
-
         enum ResourceType
         {
             Stone,
@@ -78,7 +79,6 @@
             
             resourceTypeAmount.Remove(ResourceType.Gold);
         }
-
         static void OtherCollections()
         {
             Stack<string> animals = new Stack<string>();
@@ -98,6 +98,37 @@
             set1.Add("a");
             set1.Add("a");
             Console.WriteLine(set1.Count);
+        }
+        static void ParamsTest()
+        {
+            ParameterCounter("a","b","c");
+
+            static void ParameterCounter(params string[] names)
+            {
+                Console.WriteLine(names.Length);
+            }
+        }
+
+        private enum AttackUnitType
+        {
+            Melee,
+            Ranged
+        }
+
+        private static void SpawnAttackUnit(
+            Vector3 spawnPosition = default, 
+            AttackUnitType unitType = AttackUnitType.Melee, 
+            Quaternion spawnRotation = default, 
+            int healthAmount = 100)
+        {
+            Console.WriteLine($"Position {spawnPosition}\nRoatation:{spawnRotation}\nUnit Type:{unitType}\nHealth:{healthAmount}");
+        }
+
+        static void OptionalParametersTest()
+        {
+            SpawnAttackUnit();
+            Console.WriteLine("-----------------------------------");
+            SpawnAttackUnit(new Vector3(1, 2, 3), AttackUnitType.Ranged, Quaternion.Identity,85);
         }
     }
 }
