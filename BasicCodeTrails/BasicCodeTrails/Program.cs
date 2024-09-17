@@ -14,7 +14,8 @@ namespace BasicCodeTrails
             //Dictionaries();
             //OtherCollections();
             //ParamsTest();
-            OptionalParametersTest();
+            //OptionalParametersTest();
+            ClassTest();
         }
 
         static void MultiD_Arrays()
@@ -108,13 +109,11 @@ namespace BasicCodeTrails
                 Console.WriteLine(names.Length);
             }
         }
-
         private enum AttackUnitType
         {
             Melee,
             Ranged
         }
-
         private static void SpawnAttackUnit(
             Vector3 spawnPosition = default, 
             AttackUnitType unitType = AttackUnitType.Melee, 
@@ -123,12 +122,97 @@ namespace BasicCodeTrails
         {
             Console.WriteLine($"Position {spawnPosition}\nRoatation:{spawnRotation}\nUnit Type:{unitType}\nHealth:{healthAmount}");
         }
-
         static void OptionalParametersTest()
         {
             SpawnAttackUnit();
             Console.WriteLine("-----------------------------------");
             SpawnAttackUnit(new Vector3(1, 2, 3), AttackUnitType.Ranged, Quaternion.Identity,85);
         }
+
+        public abstract class Unit
+        {
+            protected float speed;
+            public virtual void Move()
+            {
+                Console.WriteLine($"Unit is moving at {speed} m/s");
+            }
+
+            public abstract void Attack();
+
+            ~Unit() //Derstructor
+            { 
+                Console.WriteLine("UNIT DESTRUCTED");
+            } 
+        }
+
+        public class Player : Unit
+        {
+            private string playerName ;
+            public Player(string playerName)
+            {
+                this.playerName = playerName;
+                speed = 5;
+            }
+
+            public override void Move()
+            {
+                Console.WriteLine($"Player is moving at {speed} m/s");
+            }
+
+            public void BackFlip() { }
+
+            public override string ToString()
+            {
+                return $"Player: {playerName}";
+            }
+
+            public override void Attack()
+            {
+            }
+        }
+
+        public class Enemy : Unit
+        {
+            public override void Attack()
+            {
+            }
+
+            public override void Move()
+            {
+                Console.WriteLine($"ENEMY is moving at {speed} m/s");
+            }
+        }
+
+        public sealed class a
+        {
+
+        }
+
+        //public class b : a { }; //Sealed classes can't be extended
+
+        public static void ClassTest()
+        {
+            //Unit unit = new Unit(); // Unit is abstract cannot be created
+            Player player = new Player("MONKEEEEEEEEEEEEEE");
+            Enemy enemy = new Enemy();
+
+            Console.WriteLine(player.ToString());
+
+            //unit.Move();
+            player.Move();
+            enemy.Move();
+
+            Unit unit2 = player;
+            unit2.Move();
+            //unit2.BackFlip(); //NOT VALID
+
+            List<Unit> list = new List<Unit>
+            {
+                player,
+                enemy
+            };
+            
+        }
+
     }
 }
