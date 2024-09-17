@@ -15,7 +15,8 @@ namespace BasicCodeTrails
             //OtherCollections();
             //ParamsTest();
             //OptionalParametersTest();
-            ClassTest();
+            //ClassTest();
+            InterfaceTest();
         }
 
         static void MultiD_Arrays()
@@ -128,7 +129,6 @@ namespace BasicCodeTrails
             Console.WriteLine("-----------------------------------");
             SpawnAttackUnit(new Vector3(1, 2, 3), AttackUnitType.Ranged, Quaternion.Identity,85);
         }
-
         public abstract class Unit
         {
             protected float speed;
@@ -144,7 +144,6 @@ namespace BasicCodeTrails
                 Console.WriteLine("UNIT DESTRUCTED");
             } 
         }
-
         public class Player : Unit
         {
             private string playerName ;
@@ -170,7 +169,6 @@ namespace BasicCodeTrails
             {
             }
         }
-
         public class Enemy : Unit
         {
             public override void Attack()
@@ -182,14 +180,11 @@ namespace BasicCodeTrails
                 Console.WriteLine($"ENEMY is moving at {speed} m/s");
             }
         }
-
         public sealed class a
         {
 
         }
-
         //public class b : a { }; //Sealed classes can't be extended
-
         public static void ClassTest()
         {
             //Unit unit = new Unit(); // Unit is abstract cannot be created
@@ -212,6 +207,56 @@ namespace BasicCodeTrails
                 enemy
             };
             
+        }
+
+        public interface IAttackable
+        {
+            //public int Health {  get; set; } // THIS IS VALID
+            public void Damage();
+            public void Arrest() {
+                Console.WriteLine("arrest");
+            }
+        }
+        
+        public interface IMoveable { }
+        public interface IHasInventory { }
+
+        public class Soldier : IAttackable, IMoveable, IHasInventory
+        {
+            public void Damage()
+            {
+                Console.WriteLine("Soldier damage");
+            }
+        }
+
+        public class Police : IAttackable, IMoveable
+        {
+            public void Damage()
+            {
+                Console.WriteLine("Police damage");
+            }
+            public void Arrest()
+            {
+                Console.WriteLine("Police arrest");
+            }
+        }
+
+        public static void AttackObject(IAttackable attackable)
+        {
+            attackable.Damage();
+        }
+
+        public static void InterfaceTest()
+        {
+            IAttackable attackableS = new Soldier();
+            IAttackable attackableP = new Police();
+            attackableS.Damage();
+
+            AttackObject(attackableS);
+            AttackObject(attackableP);
+
+            attackableS.Arrest();
+            attackableP.Arrest();
         }
 
     }
